@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AppProyectoFelipe.Layers.UI;
+using AppProyectoFelipe.Layers.UI.Mantenimientos;
+using AppProyectoFelipe.Layers.UI.Procesos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +19,7 @@ namespace AppProyectoFelipe
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmInicioSesion());
+            Application.Run(new FrmMantClientes());
         }
     }
 }

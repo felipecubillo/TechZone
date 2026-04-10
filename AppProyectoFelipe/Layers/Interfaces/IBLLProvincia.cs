@@ -1,4 +1,5 @@
 ﻿using AppProyectoFelipe.Layers.Entities;
+using AppProyectoFelipe.Layers.Entities.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,6 @@ namespace AppProyectoFelipe.Layers.Interfaces
 {
      interface IBLLProvincia
     {
-        Provincia ObtenerProvinviaInternet(int pId);
-        Provincia ObtenerPorId(int pId);
-        Task<IEnumerable<Provincia>> ObtenerTodos();
-        Task<Provincia> Guardar(Provincia pProvincia);
-        Task<bool> Eliminar(int pId);
+        Task<List<UbicacionDTO.Provincia>> ObtenerProvinciasAsync();
     }
 }

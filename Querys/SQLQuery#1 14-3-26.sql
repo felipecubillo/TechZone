@@ -1,7 +1,7 @@
 --Tabla provincia
 CREATE TABLE Provincia(
     IdProvincia INT PRIMARY KEY,
-    Nombre VARCHAR(50) NOT NULL
+    Nombre VARCHAR(50) NOT NULL,
 )
 GO
 
@@ -15,6 +15,7 @@ CREATE TABLE Cliente(
     Correo VARCHAR(100),
     DireccionExacta VARCHAR(200),
     IdProvincia INT NOT NULL,
+	Estado bit,
     Fotografia VARBINARY(MAX),
 
     CONSTRAINT FK_Cliente_Provincia
@@ -26,21 +27,24 @@ GO
 --Tabla marca
 CREATE TABLE Marca(
     IdMarca INT IDENTITY(1,1) PRIMARY KEY,
-    Descripcion VARCHAR(100) NOT NULL
+    Descripcion VARCHAR(100) NOT NULL,
+	Estado bit
 )
 GO
 
 --tabla modelo
 CREATE TABLE Modelo(
     IdModelo INT IDENTITY(1,1) PRIMARY KEY,
-    Descripcion VARCHAR(100) NOT NULL
+    Descripcion VARCHAR(100) NOT NULL,
+	Estado bit
 )
 GO
 
 --Tabla Tipo dispositivo
 CREATE TABLE TipoDispositivo(
     IdTipoDispositivo INT IDENTITY(1,1) PRIMARY KEY,
-    Descripcion VARCHAR(100) NOT NULL
+    Descripcion VARCHAR(100) NOT NULL,
+	Estado bit
 )
 GO
 
@@ -55,6 +59,7 @@ CREATE TABLE Producto(
     Caracteristicas VARCHAR(500),
     Extras VARCHAR(300),
     CantidadStock INT DEFAULT 0,
+	Estado bit,
     DocumentoEspecificaciones VARBINARY(MAX),
 
     CONSTRAINT FK_Producto_Tipo
@@ -87,7 +92,8 @@ GO
 CREATE TABLE Impuesto(
     IdImpuesto INT PRIMARY KEY,
     Descripcion VARCHAR(50),
-    Porcentaje DECIMAL(5,2)
+    Porcentaje DECIMAL(5,2),
+	Estado bit
 )
 GO
 
@@ -96,7 +102,8 @@ CREATE TABLE IngresoStock(
     IdIngreso INT IDENTITY(1,1) PRIMARY KEY,
     Fecha DATETIME DEFAULT GETDATE(),
     FacturaCompra VARCHAR(100),
-    Observaciones VARCHAR(300)
+    Observaciones VARCHAR(300),
+	Estado bit
 )
 GO
 
@@ -116,3 +123,26 @@ CREATE TABLE DetalleIngresoStock(
         REFERENCES Producto(IdProducto)
 )
 GO
+
+--Tabla Perfil
+Create table Perfil(
+	IdPerfil int Identity (1,1) Primary key,
+	Descripcion varchar(50) not null,
+	Estado bit not null
+)
+
+--Tabla Usuario
+CREATE TABLE Usuario(
+    IdUsuario VARCHAR(100) PRIMARY KEY,
+    IdPerfil INT NOT NULL,
+    Contrasena VARCHAR(50) NOT NULL,
+    Nombre VARCHAR(50) NOT NULL,
+    Correo VARCHAR(50) NOT NULL,
+    Estado BIT
+
+    CONSTRAINT FK_Usuario_Perfil
+        FOREIGN KEY (IdPerfil)
+        REFERENCES Perfil(IdPerfil)
+)
+GO
+

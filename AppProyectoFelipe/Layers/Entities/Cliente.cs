@@ -8,6 +8,10 @@ namespace AppProyectoFelipe.Layers.Entities
 {
      class Cliente
     {
+        public int IdCliente { get; set; }
+
+        public int IdTipoIdentificacion { get; set; }
+
         public string Identificacion { get; set; }
 
         public string Nombre { get; set; }
@@ -22,9 +26,11 @@ namespace AppProyectoFelipe.Layers.Entities
 
         public string DireccionExacta { get; set; }
 
-        public int IdProvincia { get; set; }
+        public string Provincia { get; set; }
 
         public byte[] Fotografia { get; set; }
+
+        public bool Estado { get; set; }
 
         public override string ToString()
         {

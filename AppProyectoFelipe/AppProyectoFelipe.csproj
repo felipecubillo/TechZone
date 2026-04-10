@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=3.3.0.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.3.3.0\lib\net462\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagingToolkit.QRCode, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MessagingToolkit.QRCode.1.3.0\lib\MessagingToolkit.QRCode.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.10.0.5\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -60,6 +66,8 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Text.Encodings.Web, Version=10.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.10.0.5\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -69,6 +77,7 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,30 +89,166 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\ServiceBCCR\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Enumeraciones\EstadoMantenimiento.cs" />
+    <Compile Include="Extensiones\ExceptionsExtention.cs" />
     <Compile Include="Layers\BLL\BLLCliente.cs" />
+    <Compile Include="Layers\BLL\BLLDolar.cs" />
+    <Compile Include="Layers\BLL\BLLFactura.cs" />
     <Compile Include="Layers\BLL\BLLMarca.cs" />
+    <Compile Include="Layers\BLL\BLLModelo.cs" />
+    <Compile Include="Layers\BLL\BLLPadron.cs" />
+    <Compile Include="Layers\BLL\BLLPerfil.cs" />
+    <Compile Include="Layers\BLL\BLLProducto.cs" />
     <Compile Include="Layers\BLL\BLLProvincia.cs" />
+    <Compile Include="Layers\BLL\BLLTipoDispositivo.cs" />
+    <Compile Include="Layers\BLL\BLLUsuario.cs" />
     <Compile Include="Layers\DAL\DALCliente.cs" />
+    <Compile Include="Layers\DAL\DALFactura.cs" />
     <Compile Include="Layers\DAL\DALMarca.cs" />
-    <Compile Include="Layers\DAL\DALProvincia.cs" />
+    <Compile Include="Layers\DAL\DALModelo.cs" />
+    <Compile Include="Layers\DAL\DALPerfil.cs" />
+    <Compile Include="Layers\DAL\DALProducto.cs" />
+    <Compile Include="Layers\DAL\DALTipoDispositivo.cs" />
+    <Compile Include="Layers\DAL\DALUsuario.cs" />
+    <Compile Include="Layers\Entities\BCCR\Dolar.cs" />
+    <Compile Include="Layers\Entities\BCCR\ServicesBCCR.cs" />
     <Compile Include="Layers\Entities\Cliente.cs" />
+    <Compile Include="Layers\Entities\DTO\PadronDTO.cs" />
+    <Compile Include="Layers\Entities\DTO\UbicacionDTO.cs" />
+    <Compile Include="Layers\Entities\Factura.cs" />
+    <Compile Include="Layers\Entities\FacturaDetalle.cs" />
     <Compile Include="Layers\Entities\Marca.cs" />
     <Compile Include="Layers\Entities\Modelo.cs" />
-    <Compile Include="Layers\Entities\Provincia.cs" />
+    <Compile Include="Layers\Entities\Perfil.cs" />
+    <Compile Include="Layers\Entities\Producto.cs" />
+    <Compile Include="Layers\Entities\TipoDispositivo.cs" />
+    <Compile Include="Layers\Entities\TipoIdentificacion.cs" />
+    <Compile Include="Layers\Entities\Usuario.cs" />
     <Compile Include="Layers\Interfaces\IBLLCliente.cs" />
+    <Compile Include="Layers\Interfaces\IBLLDolar.cs" />
+    <Compile Include="Layers\Interfaces\IBLLFactura.cs" />
     <Compile Include="Layers\Interfaces\IBLLMarca.cs" />
+    <Compile Include="Layers\Interfaces\IBLLModelo.cs" />
+    <Compile Include="Layers\Interfaces\IBLLPadron.cs" />
+    <Compile Include="Layers\Interfaces\IBLLPerfil.cs" />
+    <Compile Include="Layers\Interfaces\IBLLProducto.cs" />
     <Compile Include="Layers\Interfaces\IBLLProvincia.cs" />
+    <Compile Include="Layers\Interfaces\IBLLTipoDispositivo.cs" />
+    <Compile Include="Layers\Interfaces\IBLLUsuario.cs" />
     <Compile Include="Layers\Interfaces\IDALCliente.cs" />
+    <Compile Include="Layers\Interfaces\IDALFactura.cs" />
     <Compile Include="Layers\Interfaces\IDALMarca.cs" />
-    <Compile Include="Layers\Interfaces\IDALProvincia.cs" />
+    <Compile Include="Layers\Interfaces\IDALModelo.cs" />
+    <Compile Include="Layers\Interfaces\IDALPerfil.cs" />
+    <Compile Include="Layers\Interfaces\IDALProducto.cs" />
+    <Compile Include="Layers\Interfaces\IDALTipoDispositivo.cs" />
+    <Compile Include="Layers\Interfaces\IDALUsuario.cs" />
+    <Compile Include="Layers\Persistencia\DataBase.cs" />
+    <Compile Include="Layers\Persistencia\FactoryConexion.cs" />
+    <Compile Include="Layers\Persistencia\FactoryDataBase.cs" />
+    <Compile Include="Layers\Persistencia\IDataBase.cs" />
     <Compile Include="Layers\UI\FrmInicioSesion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Layers\UI\FrmInicioSesion.Designer.cs">
       <DependentUpon>FrmInicioSesion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Layers\UI\FrmMenuPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\FrmMenuPrincipal.Designer.cs">
+      <DependentUpon>FrmMenuPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmImpuesto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmImpuesto.Designer.cs">
+      <DependentUpon>FrmImpuesto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmIngresosStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmIngresosStock.Designer.cs">
+      <DependentUpon>FrmIngresosStock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmMantClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmMantClientes.Designer.cs">
+      <DependentUpon>FrmMantClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmMarca.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmMarca.Designer.cs">
+      <DependentUpon>FrmMarca.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmModelo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmModelo.Designer.cs">
+      <DependentUpon>FrmModelo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmProductos.Designer.cs">
+      <DependentUpon>FrmProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmTipoDispositivo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\FrmTipoDispositivo.Designer.cs">
+      <DependentUpon>FrmTipoDispositivo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layers\UI\Procesos\FrmFacturacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\Procesos\FrmFacturacion.Designer.cs">
+      <DependentUpon>FrmFacturacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\Cryptography.cs" />
+    <Compile Include="Util\CustomException.cs" />
+    <Compile Include="Util\QuickResponse.cs" />
+    <Compile Include="Util\UtilError.cs" />
+    <Compile Include="Util\Utils.cs" />
+    <EmbeddedResource Include="Layers\UI\FrmInicioSesion.resx">
+      <DependentUpon>FrmInicioSesion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\FrmMenuPrincipal.resx">
+      <DependentUpon>FrmMenuPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\Mantenimientos\FrmImpuesto.resx">
+      <DependentUpon>FrmImpuesto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\Mantenimientos\FrmIngresosStock.resx">
+      <DependentUpon>FrmIngresosStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\Mantenimientos\FrmMantClientes.resx">
+      <DependentUpon>FrmMantClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\Mantenimientos\FrmMarca.resx">
+      <DependentUpon>FrmMarca.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\Mantenimientos\FrmModelo.resx">
+      <DependentUpon>FrmModelo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\Mantenimientos\FrmProductos.resx">
+      <DependentUpon>FrmProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\Mantenimientos\FrmTipoDispositivo.resx">
+      <DependentUpon>FrmTipoDispositivo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\Procesos\FrmFacturacion.resx">
+      <DependentUpon>FrmFacturacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -112,8 +257,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Connected Services\ServiceBCCR\wsindicadoreseconomicos.wsdl" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -128,15 +276,33 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Enumeraciones\" />
     <Folder Include="Factories\" />
-    <Folder Include="Layers\Entities\DTO\" />
-    <Folder Include="Layers\Persistencia\" />
-    <Folder Include="Layers\UI\Mantenimientos\" />
-    <Folder Include="Layers\UI\Procesos\" />
     <Folder Include="Layers\UI\Reportes\" />
     <Folder Include="Layers\UI\Seguridad\" />
-    <Folder Include="Util\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo moderno de TechZoneCR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\ServiceBCCR\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceBCCR\wsindicadoreseconomicos.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceBCCR\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceBCCR\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceBCCR\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />

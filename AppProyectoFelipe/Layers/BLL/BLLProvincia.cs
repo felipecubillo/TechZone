@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
+using AppProyectoFelipe.Layers.Entities.DTO;
 
 
 
@@ -19,66 +20,42 @@ namespace AppProyectoFelipe.Layers.BLL
 {
     class BLLProvincia : IBLLProvincia
     {
-        public Task<bool> Eliminar(int pId)
+        private readonly string _urlProvincias;
+
+        public BLLProvincia()
         {
-            IDALProvincia dalProvincia = new DALProvincia();
-            return dalProvincia.Eliminar(pId);
+            // Leer del App.Config las URLs para las APIs
+            _urlProvincias = ConfigurationManager.AppSettings["URLProvincia"];
+
         }
 
-        public Task<Provincia> Guardar(Provincia pProvincia)
+        public async Task<List<UbicacionDTO.Provincia>> ObtenerProvinciasAsync()
         {
-            IDALProvincia dalProvincia = new DALProvincia();
-            Task<Provincia> oProvincia = null;
-
-            if (dalProvincia.ObtenerPorId(pProvincia.IdProvincia) == null)
-                oProvincia = dalProvincia.Guardar(pProvincia);
-            else
-                oProvincia = dalProvincia.Actualizar(pProvincia);
-
-            return oProvincia;
+            return await ObtenerDatosDeApi<List<UbicacionDTO.Provincia>>(_urlProvincias);
         }
 
-        public Provincia ObtenerPorId(int pId)
+        private async Task<T> ObtenerDatosDeApi<T>(string url)
         {
-            IDALProvincia dalProvincia = new DALProvincia();
-            return dalProvincia.ObtenerPorId(pId);
-        }
-
-        public Provincia ObtenerProvinviaInternet(int pId)
-        {
-            Provincia provincia = null;
             string json = "";
 
-            // Leer del App.Config el URL con el Key URLPadron
-            string url = ConfigurationManager.AppSettings["URLProvincia"];
+            // Crear una solicitud GET para obtener los datos
+            WebRequest solicitud = WebRequest.Create(url);
+            // Método GET
+            solicitud.Method = "GET";
 
-
-            // Creates a GET request to fetch  
-            WebRequest request = WebRequest.Create(url);
-            // Verb GET
-            request.Method = "GET";
-
-
-            // GetResponse returns a web response containing the response to the request
-            using (WebResponse webResponse = request.GetResponse())
+            using (WebResponse respuestaWeb = await solicitud.GetResponseAsync())
             {
-                // Reading data
-                StreamReader reader = new StreamReader(webResponse.GetResponseStream());
-                json = reader.ReadToEnd();
+                // Leer datos
+                using (StreamReader lector = new StreamReader(respuestaWeb.GetResponseStream()))
+                {
+                    json = await lector.ReadToEndAsync();
+                }
             }
 
-            // Todas las provincias
-            List<Provincia> lista = System.Text.Json.JsonSerializer.Deserialize<List<Provincia>>(json);
+            // Deserializar JSON usando Newtonsoft.Json
+            T resultado = JsonConvert.DeserializeObject<T>(json);
 
-            provincia = lista.Find(p => p.IdProvincia == pId);
-
-            return provincia;
-        }
-
-        public Task<IEnumerable<Provincia>> ObtenerTodos()
-        {
-            IDALProvincia dalProvincia = new DALProvincia();
-            return dalProvincia.ObtenerTodos();
+            return resultado;
         }
     }
 }

@@ -1,0 +1,2 @@
+ALTER TABLE Producto
+ADD Nombre VARCHAR(100);
