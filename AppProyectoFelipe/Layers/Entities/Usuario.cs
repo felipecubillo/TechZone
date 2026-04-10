@@ -8,7 +8,7 @@ namespace AppProyectoFelipe.Layers.Entities
 {
      class Usuario
     {
-        public string IdUsuario {  get; set; }
+        public int IdUsuario {  get; set; }
 
         public int IdPerfil { get; set; }
 

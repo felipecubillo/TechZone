@@ -9,11 +9,11 @@ namespace AppProyectoFelipe.Layers.Interfaces
 {
      interface IDALUsuario
     {
-        Usuario IdUsuario(string pIdUsuario, string pContrasena);
+        Usuario IdUsuario(int pIdUsuario, string pContrasena);
         IEnumerable<Usuario> ObtenerTodos();
         Usuario Guardar(Usuario pUsuario);
         Usuario Actualizar(Usuario pUsuario);
-        Usuario ObtenerPorId(string pIdUsuario);
-        bool Borrar(string pIdUsuario);
+        Usuario ObtenerPorId(int pIdUsuario);
+        bool Borrar(int pIdUsuario);
     }
 }
